@@ -1,0 +1,25 @@
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+      - "51212:51212"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    depends_on:
+      - db
+    
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: portfolio_user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: portfolio_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
