@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { prisma } from "./lib/prisma";
 
 export default async function Home() {
@@ -9,8 +10,14 @@ export default async function Home() {
 
       {posts.map((post) => (
         <article key={post.id}>
-          <h2>{post.title}</h2>
+          <h2>
+            <Link href={`/posts/${post.id}`}>
+              {post.title}
+            </Link>
+          </h2>
+
           <p>{post.content}</p>
+
           <hr />
         </article>
       ))}
