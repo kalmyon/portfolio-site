@@ -57,13 +57,52 @@ docker compose exec app npx prisma migrate dev
 docker compose exec app npx prisma generate
 ```
 
-### Prisma Studio起動
+## Prisma Studio
+
+### 起動
 
 ```bash
-docker compose exec app npx prisma studio
+docker compose exec app npm run studio
 ```
 
-起動後に表示されるURLへアクセスしてください。
+または
+
+```bash
+docker compose exec app npx prisma studio --browser none
+```
+
+### 注意事項
+
+Docker環境では Prisma Studio がブラウザを自動起動しようとしますが、コンテナ内には `xdg-open` が存在しないため、以下のようなエラーが発生することがあります。
+
+```text
+Error: spawn xdg-open ENOENT
+```
+
+このエラーを回避するため、本プロジェクトでは `--browser none` オプションを使用しています。
+
+```bash
+npx prisma studio --browser none
+```
+
+Studio起動後は、表示されたURLをホストOS側のブラウザで開いてください。
+
+例:
+
+```text
+Prisma Studio is running at: http://localhost:51212
+```
+
+↓
+
+ブラウザで
+
+```text
+http://localhost:51212
+```
+
+へアクセスします。
+
 
 ## PostgreSQL接続
 
