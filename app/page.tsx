@@ -1,34 +1,107 @@
 import Link from "next/link";
-import { prisma } from "./lib/prisma";
 
-export default async function Home() {
-  const posts = await prisma.post.findMany();
-
+export default function HomePage() {
   return (
     <>
-      <h1 className="mb-8 text-4xl font-bold">
-        ブログ記事一覧
-      </h1>
+      {/* Hero */}
+      <section className="py-20 text-center">
+        <h1 className="text-5xl font-bold">
+          Kaito Fukushima
+        </h1>
 
-      {posts.map((post) => (
-        <article
-          key={post.id}
-          className="mb-6 rounded-lg bg-white p-6 shadow"
-        >
-          <h2 className="mb-2 text-2xl font-semibold">
-            <Link
-              href={`/posts/${post.id}`}
-              className="hover:text-blue-600"
+      </section>
+      
+      {/* About */}
+      <section className="mt-16">
+        <h2 className="mb-6 text-3xl font-bold">
+          About
+        </h2>
+
+        <p className="leading-8">
+          松江工業高等専門学校 情報工学科所属 4年生
+          <br />
+          現在はWebアプリケーション開発を中心に学習しています。
+          <br />フロントエンドだけでなくバックエンドやデータベース設計にも興味があります。
+        </p>
+      </section>
+
+      {/* Skills */}
+      <section className="mt-20">
+        <h2 className="mb-6 text-3xl font-bold">
+          Skills
+        </h2>
+
+        <div className="flex flex-wrap gap-3">
+          {[
+            "Next.js",
+            "TypeScript",
+            "React",
+            "Prisma",
+            "PostgreSQL",
+            "Docker",
+            "Python",
+            "C++",
+            "Unity",
+          ].map((skill) => (
+            <span
+              key={skill}
+              className="rounded-full bg-blue-100 px-4 py-2 text-blue-700"
             >
-              {post.title}
-            </Link>
-          </h2>
+              {skill}
+            </span>
+          ))}
+        </div>
+      </section>
 
-          <p className="text-gray-600">
-            {post.content}
-          </p>
-        </article>
-      ))}
+      {/* Works */}
+      <section className="mt-20">
+        <h2 className="mb-6 text-3xl font-bold">
+          Works
+        </h2>
+
+        <div className="grid gap-6 md:grid-cols-2">
+          <div className="rounded-lg bg-white p-6 shadow">
+            <h3 className="text-xl font-semibold">
+              Portfolio Site
+            </h3>
+
+            <p className="mt-3 text-gray-600">
+              Next.js・Prisma・PostgreSQL・Dockerを用いて開発している
+              ポートフォリオサイトです。
+            </p>
+          </div>
+
+          <div className="rounded-lg bg-white p-6 shadow">
+            <h3 className="text-xl font-semibold">
+              DiaryAI
+            </h3>
+
+            <p className="mt-3 text-gray-600">
+              AIを活用した日記アプリです。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 text-center">
+        <div className="mt-8 flex justify-center gap-4">
+          <Link
+            href="/posts"
+            className="rounded bg-blue-600 px-6 py-3 text-white hover:bg-blue-700"
+          >
+            Blog
+          </Link>
+
+          <Link
+            href="/ask"
+            className="rounded border border-blue-600 px-6 py-3 text-blue-600 hover:bg-blue-50"
+          >
+            匿名質問箱
+          </Link>
+        </div>
+      </section>
+
+      
     </>
   );
 }
