@@ -22,7 +22,7 @@ export default function Header(){
                         </li>
                          <li>
               <Link
-                href="/ask"
+                href="/questions"
                 className="hover:text-blue-600"
               >
                 Ask

@@ -61,5 +61,5 @@ async function createQuestion(formData: FormData) {
         },
     });
 
-    redirect("/ask/complete");
+    redirect("/questions/new/complete");
 }

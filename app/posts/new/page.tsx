@@ -1,5 +1,4 @@
-import { prisma } from "@/app/lib/prisma";
-import { redirect } from "next/navigation";
+import { createPost } from "@/app/actions/post";
 
 export default function NewPostPage() {
   return (
@@ -70,21 +69,4 @@ export default function NewPostPage() {
       </form>
     </>
   );
-}
-
-
-async function createPost(formData: FormData) {
-  "use server";
-
-  const title = formData.get("title") as string;
-  const content = formData.get("content") as string;
-
-  await prisma.post.create({
-    data: {
-      title,
-      content,
-    },
-  });
-
-  redirect("/");
 }
