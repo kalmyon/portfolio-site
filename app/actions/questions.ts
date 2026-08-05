@@ -31,3 +31,18 @@ export async function updateQuestion(
 
     redirect("/admin/questions");
 }
+
+export async function createQuestion(formData: FormData) {
+
+    const nickname = formData.get("nickname") as string;
+    const content = formData.get("content") as string;
+
+    await prisma.question.create({
+        data: {
+            nickname:nickname || null,
+            content: content,
+        },
+    });
+
+    redirect("/questions/new/complete");
+}
