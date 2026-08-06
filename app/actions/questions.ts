@@ -48,8 +48,6 @@ export async function createQuestion(formData: FormData) {
 }
 
 export async function deleteQuestion(id: number) {
-  "use server";
-
   await prisma.question.delete({
     where: {
       id,
@@ -57,4 +55,40 @@ export async function deleteQuestion(id: number) {
   });
 
   redirect("/admin/questions");
+}
+
+export async function likeQuestion(
+    id: number
+) {
+    await prisma.question.update({
+        where: {
+            id,
+        },
+        data: {
+            likes: {
+                increment: 1,
+            },
+        },
+    });
+
+    revalidatePath("/questions");
+    revalidatePath(`/questions/${id}`);
+}
+
+
+export async function toggleQuestionPublished(
+    id: number,
+    published: boolean
+) {
+    await prisma.question.update({
+        where: {
+            id,
+        },
+        data: {
+            published,
+        },
+    });
+
+    revalidatePath("/admin/questions");
+    revalidatePath("/questions");
 }

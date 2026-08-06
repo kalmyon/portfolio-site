@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 
 import { prisma } from "@/app/lib/prisma";
-
+import LikeButton from "@/app/components/LikeButton";
 
 type PageProps = {
     params: Promise<{
@@ -60,6 +60,7 @@ export default async function QuestionDetailPage({
                         {question.answer}
                     </p>
                 </section>
+                <LikeButton questionId={question.id} likes={question.likes} />
             </article>
         </div>
     );
