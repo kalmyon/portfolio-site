@@ -8,14 +8,14 @@ export default function CompletePage() {
       </h1>
 
       <p className="mt-4 text-gray-600">
-        ご質問ありがとうございます。
+        回答されたのち、公開されますので、しばらくお待ちください。
       </p>
 
       <Link
-        href="/"
+        href="/questions"
         className="mt-8 inline-block rounded bg-blue-600 px-6 py-3 text-white hover:bg-blue-700"
       >
-        トップへ戻る
+        Q&Aトップへ戻る
       </Link>
     </main>
   );

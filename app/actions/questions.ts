@@ -46,3 +46,15 @@ export async function createQuestion(formData: FormData) {
 
     redirect("/questions/new/complete");
 }
+
+export async function deleteQuestion(id: number) {
+  "use server";
+
+  await prisma.question.delete({
+    where: {
+      id,
+    },
+  });
+
+  redirect("/admin/questions");
+}

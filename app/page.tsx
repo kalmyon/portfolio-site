@@ -93,7 +93,7 @@ export default function HomePage() {
           </Link>
 
           <Link
-            href="/ask"
+            href="/questions"
             className="rounded border border-blue-600 px-6 py-3 text-blue-600 hover:bg-blue-50"
           >
             匿名質問箱
