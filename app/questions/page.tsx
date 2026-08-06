@@ -1,18 +1,19 @@
 import { prisma } from "@/app/lib/prisma";
 import Link from "next/link";
+import LikeButton from "@/app/components/LikeButton";
 
 export default async function QuestionsPage() {
-    const questions = await prisma.question.findMany({
-        where: {
-            published: true,
-            answered: true,
-        },
-        orderBy: {
-            createdAt: "desc",
-        },
-    });
+  const questions = await prisma.question.findMany({
+    where: {
+      published: true,
+      answered: true,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
 
-    return (
+  return (
     <>
       <div className="max-w-3xl mx-auto p-6">
         <h1 className="text-3xl font-bold mb-8">
@@ -51,13 +52,19 @@ export default async function QuestionsPage() {
                     {question.answer}
                   </p>
                 </div>
+
+                <LikeButton questionId={question.id} likes={question.likes} />
               </article>
             ))}
           </div>
         )}
       </div>
+
       <div className="max-w-3xl mx-auto p-6">
-        <Link href="/questions/new" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        <Link
+          href="/questions/new"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
           新しい質問を投稿
         </Link>
       </div>

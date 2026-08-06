@@ -85,15 +85,21 @@ export default async function AdminQuestionsPage({
                   {question.nickname || "匿名"}
                 </h2>
 
-                <span
-                  className={`rounded-full px-3 py-1 text-sm font-medium ${
-                    question.answered
-                      ? "bg-green-100 text-green-700"
-                      : "bg-yellow-100 text-yellow-700"
-                  }`}
-                >
-                  {question.answered ? "回答済み" : "未回答"}
-                </span>
+                <div className="flex items-center gap-3">
+                  <span className="rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700">
+                    👍 {question.likes}
+                  </span>
+
+                  <span
+                    className={`rounded-full px-3 py-1 text-sm font-medium ${
+                      question.answered
+                        ? "bg-green-100 text-green-700"
+                        : "bg-yellow-100 text-yellow-700"
+                    }`}
+                  >
+                    {question.answered ? "回答済み" : "未回答"}
+                  </span>
+                </div>
               </div>
 
               {/* 質問 */}
