@@ -1,5 +1,6 @@
 import { prisma } from "../../lib/prisma";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
+import { deletePost } from "@/app/actions/post";
 import Link from "next/link";
 type Props = {
   params: Promise<{
@@ -20,17 +21,6 @@ export default async function PostPage({ params }: Props) {
     notFound();
   }
 
-  async function deletePost() {
-    "use server";
-
-    await prisma.post.delete({
-      where: {
-        id: Number(id),
-      },
-    });
-    
-    redirect("/");
-  }
   return (
     <>
       <div className="rounded-lg bg-white p-8 shadow">
@@ -50,7 +40,7 @@ export default async function PostPage({ params }: Props) {
           編集
         </Link>
 
-        <form action={deletePost}>
+        <form action={deletePost.bind(null, post.id)}>
           <button
             type="submit"
             className="rounded bg-red-600 px-4 py-2 text-white hover:bg-red-700"

@@ -1,6 +1,5 @@
 import { prisma } from "@/app/lib/prisma";
-import { redirect } from "next/navigation";
-
+import { updatePost } from "@/app/actions/post";
 export default async function EditPage({
   params,
 }: {
@@ -24,25 +23,6 @@ export default async function EditPage({
     );
   }
 
-  async function updatePost(formData: FormData) {
-    "use server";
-
-    const title = formData.get("title") as string;
-    const content = formData.get("content") as string;
-
-    await prisma.post.update({
-      where: {
-        id: Number(id),
-      },
-      data: {
-        title,
-        content,
-      },
-    });
-
-    redirect(`/posts/${id}`);
-  }
-
   return (
     <>
       <h1 className="mb-8 text-4xl font-bold">
@@ -50,7 +30,7 @@ export default async function EditPage({
       </h1>
 
       <form
-        action={updatePost}
+        action={updatePost.bind(null, post.id)}
         className="space-y-6 rounded-lg bg-white p-8 shadow"
       >
         <div>
