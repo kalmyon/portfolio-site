@@ -6,7 +6,7 @@ Docker上で Next.js、PostgreSQL、Prisma を利用したフルスタックWeb�
 
 ## 使用技術
 
-* Next.js 15
+* Next.js 16
 * TypeScript
 * PostgreSQL 17
 * Prisma 7
