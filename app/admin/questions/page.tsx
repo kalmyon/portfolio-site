@@ -1,5 +1,6 @@
 import { prisma } from "@/app/lib/prisma";
 import Link from "next/link";
+import { toggleQuestionPublished } from "@/app/actions/questions";
 
 type PageProps = {
   searchParams: Promise<{
@@ -87,7 +88,7 @@ export default async function AdminQuestionsPage({
 
                 <div className="flex items-center gap-3">
                   <span className="rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700">
-                    👍 {question.likes}
+                    ❤️ {question.likes}
                   </span>
 
                   <span
@@ -98,6 +99,16 @@ export default async function AdminQuestionsPage({
                     }`}
                   >
                     {question.answered ? "回答済み" : "未回答"}
+                  </span>
+
+                  <span
+                    className={`rounded-full px-3 py-1 text-sm font-medium ${
+                      question.published
+                        ? "bg-blue-100 text-blue-700"
+                        : "bg-gray-100 text-gray-700"
+                    }`}
+                  >
+                    {question.published ? "公開中" : "非公開"}
                   </span>
                 </div>
               </div>
@@ -115,26 +126,39 @@ export default async function AdminQuestionsPage({
                 </div>
               </div>
 
-              {/* 回答 */}
-              <div className="mb-6">
-                <h3 className="mb-2 font-semibold text-gray-800">
-                  回答
-                </h3>
+              {question.answered && (
+                <div className="mb-6">
+                  <h3 className="mb-2 font-semibold text-gray-800">
+                    回答
+                  </h3>
 
-                <div className="rounded-lg bg-blue-50 p-4">
-                  {question.answer ? (
+                  <div className="rounded-lg bg-blue-50 p-4">
                     <p className="whitespace-pre-wrap text-gray-700">
                       {question.answer}
                     </p>
-                  ) : (
-                    <p className="italic text-gray-400">
-                      まだ回答がありません
-                    </p>
-                  )}
+                  </div>
                 </div>
-              </div>
+              )}
 
-              <div className="flex justify-end">
+              <div className="flex justify-end gap-3">
+                <form
+                  action={toggleQuestionPublished.bind(
+                    null,
+                    question.id,
+                    !question.published
+                  )}
+                >
+                  <button
+                    className={`rounded-lg px-4 py-2 font-medium text-white transition ${
+                      question.published
+                        ? "bg-gray-500 hover:bg-gray-600"
+                        : "bg-green-500 hover:bg-green-700"
+                    }`}
+                  >
+                    {question.published ? "非公開にする" : "公開する"}
+                  </button>
+                </form>
+
                 <Link
                   href={`/admin/questions/${question.id}`}
                   className="rounded-lg bg-blue-600 px-4 py-2 font-medium text-white transition hover:bg-blue-700"

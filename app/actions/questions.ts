@@ -74,3 +74,21 @@ export async function likeQuestion(
     revalidatePath("/questions");
     revalidatePath(`/questions/${id}`);
 }
+
+
+export async function toggleQuestionPublished(
+    id: number,
+    published: boolean
+) {
+    await prisma.question.update({
+        where: {
+            id,
+        },
+        data: {
+            published,
+        },
+    });
+
+    revalidatePath("/admin/questions");
+    revalidatePath("/questions");
+}

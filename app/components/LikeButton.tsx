@@ -18,7 +18,7 @@ export default function LikeButton({
             <button
                 className="mt-4 border rounded-lg px-4 py-2 hover:bg-gray-100 transition"
             >
-                👍 {likes}
+                ❤️ {likes}
             </button>
         </form>
     );
